@@ -24,6 +24,7 @@ Calendar.prototype.clearBlocks = function () {
 		this.blocks[i].removeAttribute('data-date');
 		FUNCS.removeClass(this.blocks[i], 'b-calendar__today');
 		FUNCS.removeClass(this.blocks[i], 'b-calendar__event');
+		FUNCS.removeClass(this.blocks[i], 'b-calendar__active');
 	}
 };
 
@@ -240,6 +241,7 @@ Calendar.prototype.showEventWindow = function (block) {
 				templateString = this.templates.eventWindow(new cEvent({}), dt);
 			eventWindow = FUNCS.createElementFromHTMLString(templateString);
 			block.appendChild(eventWindow);
+			FUNCS.addClass(block, 'b-calendar__active');
 			this.eventWindow = eventWindow;
 			this.addcEventHandlers();
 		}
@@ -290,6 +292,7 @@ Calendar.prototype.addcEventHandlers = function () {
 	});
 }
 Calendar.prototype.closeEventWindow = function () {
+	FUNCS.removeClass(this.eventWindow.parentNode, 'b-calendar__active');
 	this.eventWindow.parentNode.removeChild(this.eventWindow);
 	this.eventWindow = '';
 }
